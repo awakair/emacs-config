@@ -9,6 +9,12 @@
 ;; auto close brackets
 (electric-pair-mode)
 
+(display-time-mode)
+(display-battery-mode)
+
+;; delete message in scratch buffer
+(setq initial-scratch-message nil)
+
 ;; I don't need welcome screen
 (setq inhibit-startup-screen t)
 
@@ -119,15 +125,59 @@
   :config (setq telega-server-libs-prefix "/opt/homebrew/Cellar/tdlib/HEAD-aefbf03")
   :ensure t)
 
-;; pdf viewer
-;;(use-package vedang/pdf-tools
-;;  :config (pdf-tools-install)
-;;
-;;:ensure t)
+;; terminal emulator
+(use-package vterm
+  :ensure t)
 
-(use-package webpaste
+(use-package vterm-toggle
   :ensure t
-  :config (setq webpaste-provider-priority '("pastebin.com")))
+  :config (global-set-key (kbd "C-c .") 'vterm-toggle-cd))
+
+;; startup screen
+(use-package dashboard
+  :ensure t
+  :init (setq dashboard-startup-banner 3)
+  :config
+  (dashboard-setup-startup-hook))
+
+;; font
+;(use-package nerd-fonts
+;  :ensure t)
+
+;; modeline
+(use-package doom-modeline
+  :ensure t
+  :hook (after-init . doom-modeline-mode))
+
+;; smart undo
+(use-package undo-tree
+  :ensure t
+  :init (undo-tree-mode))
+
+;; search files on mac
+(use-package spotlight
+  :ensure t)
+
+;; github gist
+(use-package gist
+  :ensure t)
+
+;; type machine sounds!!!!!
+(use-package selectric-mode
+  :ensure t
+  :config (selectric-mode))
+
+;; paste braces and ""
+;(use-package surround
+;  :ensure t
+;  :config ((global-set-key (kbd "C-q d") 'surround-delete)
+;	   (global-set-key (kbd "C-q i") 'surround-insert)))
+
+;; to do homework
+;;(use-package org-roam
+;;  :ensure t
+;;  :custom (org-roam-directory "~/Desktop/org-roam/")
+;;  :config (org-roam-setup))
 
 
 
@@ -139,7 +189,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(webpaste pastebin helm-ls-git vedang/pdf-tools pdf-tools telega column-marker helm-lsp helm lsp-treemacs treemacs lsp-ui projectile free-keys ace-window magit ace-jump-buffer avy cmake-project cmake-mode lsp-mode highlight-indent-guides ace-jump-mode sublimity minimap zoxide crux use-package rainbow-delimiters gruvbox-theme company)))
+   '(ranger selectric-mode google-this gist spotlight undo-tree nerd-fonts surround focus nerd-icons dashboard tldr vterm-toggle haskell-mode all-the-icons vterm org-roam webpaste pastebin helm-ls-git vedang/pdf-tools pdf-tools telega column-marker helm-lsp helm lsp-treemacs treemacs lsp-ui projectile free-keys ace-window magit ace-jump-buffer avy cmake-project cmake-mode lsp-mode highlight-indent-guides ace-jump-mode sublimity minimap zoxide crux use-package rainbow-delimiters gruvbox-theme company)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
